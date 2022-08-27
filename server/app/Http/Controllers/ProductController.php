@@ -75,6 +75,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $this->productRepository->destroy($product);
+
+        return response(null, 200);
     }
 }
