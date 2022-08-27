@@ -14,7 +14,6 @@ class ProductCategoriesController extends Controller
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
-    
     }
     public function index(Product $product)
     {
@@ -34,6 +33,5 @@ class ProductCategoriesController extends Controller
         $this->productRepository->detachCategory($product, $category);
 
         return response(null, 200);
-        
     }
 }

@@ -42,6 +42,5 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $product->categories()->detach($category->id);
 
         return true;
-        
     }
 }
