@@ -12,4 +12,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         parent::__construct($model);
     }
+
+    public function getProductCategories(Product $product)
+    {
+        return $product->categories;
+    }
 }
