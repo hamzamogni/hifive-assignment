@@ -37,7 +37,9 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $this->productRepository->create($request->validated());
+
+        return response(null, 201);
     }
 
     /**

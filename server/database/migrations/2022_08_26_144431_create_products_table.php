@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("name")->unique();
             $table->text("description");
             $table->float("price");
-            $table->string("image")->unique();
+            $table->string("image")->nullable()->unique();
             $table->timestamps();
         });
     }
