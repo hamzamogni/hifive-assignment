@@ -13,7 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => "string|unique:categories,name|required"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "name.unique" => "This category name already exists"
         ];
     }
 }
