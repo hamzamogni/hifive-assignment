@@ -5,13 +5,18 @@ namespace App\Repositories\Eloquent;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
     public function __construct(Product $model)
     {
         parent::__construct($model);
+    }
+
+    public function all(): Collection
+    {
+        return Product::orderBy("created_at", "desc")->get();
     }
 
     public function getProductCategories(Product $product)
