@@ -39,6 +39,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
         <p class="text-h4">
             {{ product.name }}
         </p>
@@ -50,24 +51,72 @@
         <p class="text-h6">Categories</p>
         <p v-if="!product.categories.length">None</p>
         <template v-else>
-            <v-chip v-for="(category, idx) in product.categories" :key="idx">
-                {{category}}
-            </v-chip>
+            <v-chip 
+                close 
+                v-for="(category, idx) in product.categories" 
+                :data-id="category.id" 
+                :key="idx"
+                @click:close="detachCategoryFromProduct(category.id)"
+            >{{ category.name }}</v-chip>
+
         </template>
 
+        <v-row class="my-5">
+            <v-btn 
+                v-if="!addCategory"
+                @click="addCategory = !addCategory"
+                text 
+                color="primary"
+            >Add Category</v-btn>
+            <v-select 
+                v-else 
+                label="Choose a category"
+                v-model="selectedCategory"
+                :items="allCategories" 
+                item-text="name" 
+                item-value="id" 
+                @input="attachCategoryToProduct"
+            ></v-select>
+        </v-row>
     </v-container>
 </template>
 <script>
 import Products from "../api/Products";
+import Categories from "../api/Categories";
 
 export default {
     data: () => ({
         dialog: false,
-        product: {},
+        product: {
+            categories: {}
+        },
+        addCategory: false,
+        selectedCategory: null,
+        categories: [],
     }),
 
     created() {
         this.getProduct();
+        this.getCategories();
+    },
+
+    computed: {
+        // We flatten the categories to show them all
+        allCategories() {
+            let flatCategories = []
+
+            this.categories.forEach(element => {
+                flatCategories.push(element);
+                
+                element.children.forEach(child => {
+                    flatCategories.push(child);
+                });
+            });
+
+            console.log(flatCategories);
+
+            return flatCategories;
+        }
     },
 
     methods: {
@@ -85,6 +134,34 @@ export default {
                 .then(() => {
                     this.$router.push("/products");
                 });
+        },
+
+        getCategories(){
+            Categories
+                .getCategories()
+                .then((response) => {
+                    this.categories = response.data.data;
+                })
+        },
+
+        attachCategoryToProduct(category) {
+            Products
+                .attachCategory(this.$route.params.id, category)
+                .then(() => {
+                    this.getProduct();
+                    this.addCategory = false;
+                    this.selectedCategory = null;
+                })
+
+            console.log("qsfmlkj");
+        },
+
+        detachCategoryFromProduct(category_id) {
+            Products
+                .detachCategory(this.$route.params.id, category_id)
+                .then(() => {
+                    this.getProduct();
+                })
         }
     }
 }

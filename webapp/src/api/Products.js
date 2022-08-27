@@ -19,6 +19,14 @@ export default {
 
     async deleteProduct(id) {
         return await Api().delete(`/products/${id}`);
-    }
+    },
+
+    async attachCategory(product_id, category_id) {
+        return await Api().post(`/products/${product_id}/categories/${category_id}`)
+    },
+
+    async detachCategory(product_id, category_id) {
+        return await Api().delete(`/products/${product_id}/categories/${category_id}`);
+    } 
 
 }
