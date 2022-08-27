@@ -15,6 +15,10 @@ export default {
             "price": data.price,
             "description": data.description,
         })
+    },
+
+    async deleteProduct(id) {
+        return await Api().delete(`/products/${id}`);
     }
 
 }
