@@ -21,8 +21,22 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function attachCategory(Product $product, Category $category)
     {
+        $productAlreadyHasCategory = Product::whereRelation("categories", "id", $category->id)->first();
+
+        if ($productAlreadyHasCategory) {
+            return;
+        }
+        
         $product->categories()->attach($category->id);
 
         return true;
+    }
+
+    public function detachCategory(Product $product, Category $category)
+    {
+        $product->categories()->detach($category->id);
+
+        return true;
+        
     }
 }
