@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/products/{product}/categories", [ProductCategoriesController::class, "index"]);
 Route::post("/products/{product}/categories/{category}", [ProductCategoriesController::class, "store"]);
+Route::delete("/products/{product}/categories/{category}", [ProductCategoriesController::class, "destroy"]);
 
 Route::apiResources([
     "categories" => CategoryController::class,

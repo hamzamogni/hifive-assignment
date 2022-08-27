@@ -24,6 +24,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+
+            $table->primary(["category_id", "product_id"]);
         });
     }
 

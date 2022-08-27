@@ -28,4 +28,12 @@ class ProductCategoriesController extends Controller
 
         return response(null, 201);
     }
+
+    public function destroy(Product $product, Category $category)
+    {
+        $this->productRepository->detachCategory($product, $category);
+
+        return response(null, 200);
+        
+    }
 }

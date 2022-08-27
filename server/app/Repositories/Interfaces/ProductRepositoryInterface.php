@@ -11,4 +11,6 @@ interface ProductRepositoryInterface
     public function getProductCategories(Product $product);
 
     public function attachCategory(Product $product, Category $category);
+
+    public function detachCategory(Product $product, Category $category);
 }
