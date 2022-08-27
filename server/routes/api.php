@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/products/{product}/categories", [ProductCategoriesController::class, "index"]);
+Route::post("/products/{product}/categories/{category}", [ProductCategoriesController::class, "store"]);
 
 Route::apiResources([
     "categories" => CategoryController::class,

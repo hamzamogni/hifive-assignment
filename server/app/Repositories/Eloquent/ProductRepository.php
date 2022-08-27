@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 
@@ -16,5 +17,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getProductCategories(Product $product)
     {
         return $product->categories;
+    }
+
+    public function attachCategory(Product $product, Category $category)
+    {
+        $product->categories()->attach($category->id);
+
+        return true;
     }
 }
