@@ -74,6 +74,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $this->categoryRepository->destroy($category);
+
+        return response(null, 200);
     }
 }
